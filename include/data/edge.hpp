@@ -12,9 +12,9 @@ namespace sangi {
     template<class T>
     class Edge {
     public:
-        Edge(const Vertex<T> src, const Vertex<T> dst, double weight) : src_(src), dst_(dst), weight_(weight) {}
+        Edge(const Vertex<T> src, const Vertex<T> dst, double weight);
         Edge(const Edge<T> edge);
-        ~Edge() = default;
+        ~Edge();
         Edge<T>& operator=(const Edge<T> edge);
 
         // Edge Methods
@@ -27,8 +27,14 @@ namespace sangi {
         double weight_;
     }; // class Edge
 
-    // Class Method Implementations
-    // TODO: Finish method implementations
+    // Class Method Definitions
+
+    template<class T>
+    Edge::Edge(const Vertex<T> src, const Vertex<T> dst, double weight)
+            : src_(src),
+              dst_(dst),
+              weight_(weight)
+    {}
 
     template<class T>
     Edge::Edge(const Edge<T> edge)
@@ -38,7 +44,22 @@ namespace sangi {
     {}
 
     template<class T>
-    Edge<T>& Edge::operator=(const Edge<T> edge) {}
+    Edge::~Edge() {
+        // TODO: Finish Implementation
+    }
+
+
+    template<class T>
+    Edge<T>& Edge::operator=(const Edge<T> edge) {
+        if (this == &edge) {
+            return *this;
+        }
+
+        src_ = edge.src_;
+        dst_ = edge.dst_;
+        weight_ = edge.weight_;
+        return *this;
+    }
 
 } // namespace sangi
 

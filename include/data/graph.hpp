@@ -25,7 +25,8 @@ namespace sangi {
         // Graph Methods
         Vertex<T> AddVertex(T value);
         void RemoveVertex(T value);
-        Edge<T> AddEdge(T src, T dst);
+        void RemoveVertex(Vertex<T> vertex);
+        Edge<T> AddEdge(T src, T dst, double weight);
         void RemoveEdge(Edge<T> edge);
         size_t GetVertexCount() const { return vertices_.size(); }
         size_t GetEdgeCount() const { return edges_.size(); }
@@ -39,8 +40,7 @@ namespace sangi {
 
     }; // class Graph
 
-    // Class Method Implementations
-    // TODO: Finish method implementations
+    // Class Method Definitions
 
     template <class T>
     Graph::Graph(const Graph<T>& graph)
@@ -50,19 +50,44 @@ namespace sangi {
     {}
 
     template <class T>
-    Graph<T>& Graph::operator=(const Graph<T>& graph) {}
+    Graph<T>& Graph::operator=(const Graph<T>& graph) {
+        if (this == &graph) {
+            return *this;
+        }
+
+        root_ = graph.root_;
+        edges_ = graph.edges_;
+        vertices_ = graph.vertices_;
+        return *this;
+    }
 
     template<class T>
-    Vertex<T> Graph::AddVertex(T value) {}
+    Vertex<T> Graph::AddVertex(T value) {
+        Vertex<T> v(value);
+        vertices_.push_back(v);
+    }
 
     template<class T>
-    void Graph::RemoveVertex(T value) {}
+    void Graph::RemoveVertex(T value) {
+        Vertex<T> v(value);
+        std::remove(vertices_.begin(), vertices_.end(), v);
+    }
 
     template<class T>
-    Edge<T> Graph::AddEdge(T src, T dst) {}
+    void Graph::RemoveVertex(Vertex<T> vertex) {
+        std::remove(vertices_.begin(), vertices_.end(), vertex);
+    }
 
     template<class T>
-    void Graph::RemoveEdge(Edge<T> edge) {}
+    Edge<T> Graph::AddEdge(T src, T dst, double weight) {
+        Edge<T> e(src, dst, weight);
+        edges_.push_back(e);
+    }
+
+    template<class T>
+    void Graph::RemoveEdge(Edge<T> edge) {
+        std::remove(edges_.begin(), edges_.end(), edge);
+    }
 
 
 } // namespace sangi
