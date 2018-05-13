@@ -39,13 +39,18 @@ namespace sangi {
 
     template<class T>
     Vertex::Vertex(const Vertex<T> &vertex)
-            : data_(vertex.GetData()),
-              in_edges_(vertex.GetInEdges()),
-              out_edges_(vertex.GetOutEdges())
+            : data_(vertex.data_),
+              in_edges_(vertex.in_edges_),
+              out_edges_(vertex.out_edges_)
     {}
 
     template<class T>
-    Vertex<T>& Vertex::operator=(const Vertex<T> &vertex) {}
+    Vertex<T>& Vertex::operator=(const Vertex<T> &vertex) {
+        data_ = vertex.data_;
+        in_edges_ = vertex.in_edges_;
+        out_edges_ = vertex.out_edges_;
+        return *this;
+    }
 
 } // namespace sangi
 

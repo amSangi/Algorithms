@@ -44,9 +44,9 @@ namespace sangi {
 
     template <class T>
     Graph::Graph(const Graph<T>& graph)
-            : root_(graph.GetRoot()),
-              edges_(graph.GetEdges()),
-              vertices_(graph.GetVertices())
+            : root_(graph.root_),
+              edges_(graph.edges_),
+              vertices_(graph.vertices_)
     {}
 
     template <class T>

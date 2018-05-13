@@ -32,9 +32,9 @@ namespace sangi {
 
     template<class T>
     Edge::Edge(const Edge<T> edge)
-            : src_(edge.GetSrc()),
-              dst_(edge.GetDst()),
-              weight_(edge.GetWeight())
+            : src_(edge.src_),
+              dst_(edge.dst_),
+              weight_(edge.weight_)
     {}
 
     template<class T>
