@@ -6,7 +6,7 @@
 #define ALGORITHMS_GRAPH_HPP
 
 #include <set>
-#include "data/edge.hpp"
+#include "edge.hpp"
 #include "vertex.hpp"
 
 using std::set;
@@ -34,7 +34,7 @@ namespace sangi {
         size_t GetEdgeCount() const                                     { return edges_.size(); }
         set<Edge<T>> GetEdges() const                                   { return edges_; }
         set<Vertex<T>> GetVertices() const                              { return vertices_; }
-        Vertex GetRoot() const                                          { return root_; }
+        Vertex<T> GetRoot() const                                          { return root_; }
     private:
         Vertex<T> root_;
         set<Edge<T>> edges_;
@@ -45,7 +45,7 @@ namespace sangi {
     // Class Method Definitions
 
     template <class T>
-    Graph::Graph(const Graph<T>& graph)
+    Graph<T>::Graph(const Graph<T>& graph)
             : root_(graph.root_),
               edges_(graph.edges_),
               vertices_(graph.vertices_)
@@ -53,7 +53,7 @@ namespace sangi {
 
 
     template<class T>
-    Graph::Graph(const Vertex<T>& root,
+    Graph<T>::Graph(const Vertex<T>& root,
                  const set<Edge<T>>& edges,
                  const set<Vertex<T>>& vertices)
             : root_(root),
@@ -63,7 +63,7 @@ namespace sangi {
 
 
     template <class T>
-    Graph<T>& Graph::operator=(const Graph<T>& graph) {
+    Graph<T>& Graph<T>::operator=(const Graph<T>& graph) {
         if (this == &graph) {
             return *this;
         }
@@ -76,34 +76,34 @@ namespace sangi {
 
 
     template<class T>
-    void Graph::AddVertex(const Vertex<T>& value) {
+    void Graph<T>::AddVertex(const Vertex<T>& value) {
         Vertex<T> v(value);
         vertices_.insert(value);
     }
 
 
     template<class T>
-    void Graph::RemoveVertex(const T& value) {
+    void Graph<T>::RemoveVertex(const T& value) {
         Vertex<T> v(value);
         std::remove(vertices_.begin(), vertices_.end(), v);
     }
 
 
     template<class T>
-    void Graph::RemoveVertex(const Vertex<T>& vertex) {
+    void Graph<T>::RemoveVertex(const Vertex<T>& vertex) {
         std::remove(vertices_.begin(), vertices_.end(), vertex);
     }
 
 
     template<class T>
-    void Graph::AddEdge(const T& src, const T& dst, double weight) {
+    void Graph<T>::AddEdge(const T& src, const T& dst, double weight) {
         Edge<T> e(src, dst, weight);
         edges_.insert(e);
     }
 
 
     template<class T>
-    void Graph::RemoveEdge(const Edge<T>& edge) {
+    void Graph<T>::RemoveEdge(const Edge<T>& edge) {
         std::remove(edges_.begin(), edges_.end(), edge);
     }
 

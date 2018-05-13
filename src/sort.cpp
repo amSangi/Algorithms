@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <cmath>
+#include <utility>
 #include "algorithms/sort.hpp"
 #include "algorithms/utility.hpp"
 
@@ -45,8 +46,9 @@ namespace sangi {
     void RadixSort(vector<int>& data, size_t base) {
 
         // Retrieve digit count of integer with most digits
-        int max_value = *std::max_element(data.begin(), data.end());
-        int min_value = *std::min_element(data.begin(), data.end());
+        auto min_max = std::minmax_element(data.begin(), data.end());
+        int max_value = *(min_max.first);
+        int min_value = *(min_max.second);
         size_t max_digit_count = CountDigits(max_value);
         size_t min_digit_count = CountDigits(min_value);
         size_t digits = max_digit_count > min_digit_count ? max_digit_count : min_digit_count;

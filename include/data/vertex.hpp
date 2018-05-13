@@ -6,11 +6,14 @@
 #define ALGORITHMS_VERTEX_HPP
 
 #include <set>
-#include "data/edge.hpp"
 
 using std::set;
 
 namespace sangi {
+
+    // Edge forward declaration
+    template<class T>
+    class Edge;
 
     template<class T>
     class Vertex {
@@ -39,7 +42,7 @@ namespace sangi {
     // Class Method Definitions
 
     template<class T>
-    Vertex::Vertex(const Vertex<T>& vertex)
+    Vertex<T>::Vertex(const Vertex<T>& vertex)
             : data_(vertex.data_),
               in_edges_(vertex.in_edges_),
               out_edges_(vertex.out_edges_)
@@ -47,7 +50,7 @@ namespace sangi {
 
 
     template<class T>
-    Vertex<T>& Vertex::operator=(const Vertex<T>& vertex) {
+    Vertex<T>& Vertex<T>::operator=(const Vertex<T>& vertex) {
         if (this == &vertex) {
             return *this;
         }
@@ -60,13 +63,13 @@ namespace sangi {
 
 
     template<class T>
-    void Vertex::RemoveInEdge(const Edge<T>& edge) {
+    void Vertex<T>::RemoveInEdge(const Edge<T>& edge) {
         std::remove(in_edges_.begin(), in_edges_.end(), edge);
     }
 
 
     template<class T>
-    void Vertex::RemoveOutEdge(const Edge<T>& edge) {
+    void Vertex<T>::RemoveOutEdge(const Edge<T>& edge) {
         std::remove(out_edges_.begin(), out_edges_.end(), edge);
     }
 

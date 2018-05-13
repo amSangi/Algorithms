@@ -32,7 +32,7 @@ namespace sangi {
     // Class Method Definitions
 
     template<class T>
-    Edge::Edge(const Vertex<T>& src,
+    Edge<T>::Edge(const Vertex<T>& src,
                const Vertex<T>& dst,
                const double weight)
             : src_(src),
@@ -45,7 +45,7 @@ namespace sangi {
 
 
     template<class T>
-    Edge::Edge(const Edge<T>& edge)
+    Edge<T>::Edge(const Edge<T>& edge)
             : src_(edge.src_),
               dst_(edge.dst_),
               weight_(edge.weight_)
@@ -53,14 +53,14 @@ namespace sangi {
 
 
     template<class T>
-    Edge::~Edge() {
+    Edge<T>::~Edge() {
         src_.RemoveOutEdge(*this);
         dst_.RemoveInEdge(*this);
     }
 
 
     template<class T>
-    Edge<T>& Edge::operator=(const Edge<T>& edge) {
+    Edge<T>& Edge<T>::operator=(const Edge<T>& edge) {
         if (this == &edge) {
             return *this;
         }
