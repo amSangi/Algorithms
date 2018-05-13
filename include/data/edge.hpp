@@ -13,11 +13,10 @@ namespace sangi {
     class Edge {
     public:
         Edge(const Vertex<T> src, const Vertex<T> dst, double weight) : src_(src), dst_(dst), weight_(weight) {}
-        explicit Edge(const Edge<T> edge) : src_(edge.GetSrc()), dst_(edge.GetDst()), weight_(edge.GetWeight()) {}
+        Edge(const Edge<T> edge);
         ~Edge() = default;
         Edge<T>& operator=(const Edge<T> edge);
 
-        // TODO: Return references or values?
         // Edge Methods
         const Vertex<T> GetSrc() const { return src_; }
         const Vertex<T> GetDst() const { return dst_; }

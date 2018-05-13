@@ -6,7 +6,7 @@
 #define ALGORITHMS_PATHFINDER_HPP
 
 #include <vector>
-#include "vertex.hpp"
+#include "data/vertex.hpp"
 
 using std::vector;
 

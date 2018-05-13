@@ -4,8 +4,8 @@
 
 #include <vector>
 #include <cmath>
-#include "sort.hpp"
-#include "utility.hpp"
+#include "algorithms/sort.hpp"
+#include "algorithms/utility.hpp"
 
 using std::vector;
 

@@ -5,7 +5,7 @@
 
 #include <gtest/gtest.h>
 #include <vector>
-#include "sort.hpp"
+#include "algorithms/sort.hpp"
 
 using namespace sangi;
 

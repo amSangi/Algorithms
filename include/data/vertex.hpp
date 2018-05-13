@@ -6,7 +6,7 @@
 #define ALGORITHMS_VERTEX_HPP
 
 #include <vector>
-#include "edge.hpp"
+#include "data/edge.hpp"
 
 using std::vector;
 
@@ -16,18 +16,17 @@ namespace sangi {
     class Vertex {
     public:
         explicit Vertex(T data) : data_(data) {}
-        explicit Vertex(const Vertex<T>& vertex);
+        Vertex(const Vertex<T>& vertex);
         ~Vertex() = default;
         Vertex<T>& operator=(const Vertex<T>& vertex);
 
-        // TODO: Return references or values?
         // Vertex Methods
         void AddInEdge(const Edge<T>& edge) { in_edges_.push_back(edge); }
         void AddOutEdge(const Edge<T>& edge) { out_edges_.push_back(edge); }
         size_t GetInEdgeCount() const { return in_edges_.size(); }
         size_t GetOutEdgeCount() const { return out_edges_.size(); }
-        vector<Edge<T>>& GetInEdges() const { return in_edges_; }
-        vector<Edge<T>>& GetOutEdges() const { return out_edges_; }
+        vector<Edge<T>> GetInEdges() const { return in_edges_; }
+        vector<Edge<T>> GetOutEdges() const { return out_edges_; }
         const T& GetData() const { return data_; }
     private:
         T data_;

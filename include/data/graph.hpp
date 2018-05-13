@@ -7,7 +7,7 @@
 
 #include <vector>
 #include <cstddef>
-#include "edge.hpp"
+#include "data/edge.hpp"
 #include "vertex.hpp"
 
 using std::vector;
@@ -18,21 +18,20 @@ namespace sangi {
     class Graph {
     public:
         explicit Graph(Vertex<T> root) : root_(root) {}
-        explicit Graph(const Graph<T>& graph);
+        Graph(const Graph<T>& graph);
         ~Graph() = default;
         Graph<T>& operator=(const Graph<T>& graph);
 
-        // TODO: Return references or values?
         // Graph Methods
-        Vertex<T>& AddVertex(T value);
+        Vertex<T> AddVertex(T value);
         void RemoveVertex(T value);
-        Edge<T>& AddEdge(T src, T dst);
+        Edge<T> AddEdge(T src, T dst);
         void RemoveEdge(Edge<T> edge);
         size_t GetVertexCount() const { return vertices_.size(); }
         size_t GetEdgeCount() const { return edges_.size(); }
-        vector<Edge<T>>& GetEdges() const { return edges_; }
-        vector<Vertex<T>>& GetVertices() const { return vertices_; }
-        Vertex& GetRoot() const { return root_; }
+        vector<Edge<T>> GetEdges() const { return edges_; }
+        vector<Vertex<T>> GetVertices() const { return vertices_; }
+        Vertex GetRoot() const { return root_; }
     private:
         Vertex<T> root_;
         vector<Edge<T>> edges_;
@@ -54,16 +53,16 @@ namespace sangi {
     Graph<T>& Graph::operator=(const Graph<T>& graph) {}
 
     template<class T>
-    Vertex<T>& Graph::AddVertex(T value) {}
+    Vertex<T> Graph::AddVertex(T value) {}
 
     template<class T>
     void Graph::RemoveVertex(T value) {}
 
     template<class T>
-    Edge<T>& Graph::AddEdge(T src, T dst) {}
+    Edge<T> Graph::AddEdge(T src, T dst) {}
 
     template<class T>
-    void Graph::RemoveEdge(sangi::Edge<T> edge) {}
+    void Graph::RemoveEdge(Edge<T> edge) {}
 
 
 } // namespace sangi

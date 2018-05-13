@@ -8,7 +8,7 @@ set(EXECUTABLE_OUTPUT_PATH  ${ALGORITHMS_BIN_OUT_PATH})
 
 file(GLOB TEST_FILES "*.cpp")
 
-add_executable(${PROJECT_NAME} ${TEST_FILES} ../include/graph.hpp ../include/vertex.hpp ../include/edge.hpp ../include/pathfinder.hpp)
+add_executable(${PROJECT_NAME} ${TEST_FILES} ../include/data/graph.hpp ../include/data/vertex.hpp ../include/data/edge.hpp ../include/algorithms/pathfinder.hpp)
 
 target_link_libraries(${PROJECT_NAME} Sorting)
 target_link_libraries(${PROJECT_NAME} gtest gtest_main)

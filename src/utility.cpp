@@ -2,7 +2,7 @@
 // Created by Amir Sangi on 2018-05-08.
 //
 
-#include <utility.hpp>
+#include <algorithms/utility.hpp>
 #include <cstdlib>
 #include <ctime>
 
