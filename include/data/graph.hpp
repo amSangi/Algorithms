@@ -6,7 +6,6 @@
 #define ALGORITHMS_GRAPH_HPP
 
 #include <set>
-#include <cstddef>
 #include "data/edge.hpp"
 #include "vertex.hpp"
 

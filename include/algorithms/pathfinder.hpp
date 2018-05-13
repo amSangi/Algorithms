@@ -15,7 +15,6 @@ using std::list;
 
 namespace sangi {
 
-    // TODO: Finish class implementation
     template<class T>
     class PathFinder {
     public:
@@ -33,8 +32,54 @@ namespace sangi {
 
     }; // class PathFinder
 
+    // Class Method Definitions
+
+    template<class T>
+    list<Vertex<T>> PathFinder::BreadthFirstSearch(const Graph<T>& graph, const Vertex<T>& node) {
+        // TODO: Finish Impl
+    }
 
 
+    template<class T>
+    list<Vertex<T>> PathFinder::DepthFirstSearch(const Graph<T>& graph, const Vertex<T>& node) {
+        // TODO: Finish Impl
+    }
+
+
+    template<class T>
+    list<Vertex<T>> PathFinder::BranchAndBound(const Graph<T>& graph, const Vertex<T>& node) {
+        // TODO: Finish Impl
+    }
+
+
+    template<class T>
+    list<Vertex<T>> PathFinder::IterativeDeepening(const Graph<T> &graph, const Vertex<T> &node){
+        // TODO: Finish Impl
+    }
+
+
+    template<class T>
+    list<Vertex<T>> PathFinder::BidirectionalSearch(const Graph<T>& graph, const Vertex<T>& node) {
+        // TODO: Finish Impl
+    }
+
+
+    template<class T>
+    list<Vertex<T>> PathFinder::BestFirstSearch(const Graph<T>& graph, const Vertex<T>& node) {
+        // TODO: Finish Impl
+    }
+
+
+    template<class T>
+    list<Vertex<T>> PathFinder::ASharp(const Graph<T>& graph, const Vertex<T>& node) {
+        // TODO: Finish Impl
+    }
+
+
+    template<class T>
+    list<Vertex<T>> PathFinder::GeneticSearch(const Graph<T>& graph, const Vertex<T>& node) {
+        // TODO: Finish Impl
+    }
 
 } // namespace sangi
 

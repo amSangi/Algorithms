@@ -5,7 +5,6 @@
 #ifndef ALGORITHMS_ALGORITHMS_H
 #define ALGORITHMS_ALGORITHMS_H
 
-#include <cstddef>
 #include <vector>
 #include "utility.hpp"
 
