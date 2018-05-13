@@ -45,6 +45,7 @@ namespace sangi {
               out_edges_(vertex.out_edges_)
     {}
 
+
     template<class T>
     Vertex<T>& Vertex::operator=(const Vertex<T> &vertex) {
         if (this == &vertex) {
@@ -57,10 +58,12 @@ namespace sangi {
         return *this;
     }
 
+
     template<class T>
     void Vertex::RemoveInEdge(const Edge<T> &edge) {
         std::remove(in_edges_.begin(), in_edges_.end(), edge);
     }
+
 
     template<class T>
     void Vertex::RemoveOutEdge(const Edge<T> &edge) {

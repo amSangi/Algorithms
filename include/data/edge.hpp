@@ -36,6 +36,7 @@ namespace sangi {
               weight_(weight)
     {}
 
+
     template<class T>
     Edge::Edge(const Edge<T> edge)
             : src_(edge.src_),
@@ -43,9 +44,11 @@ namespace sangi {
               weight_(edge.weight_)
     {}
 
+
     template<class T>
     Edge::~Edge() {
-        // TODO: Finish Implementation
+        src_.RemoveOutEdge(*this);
+        dst_.RemoveInEdge(*this);
     }
 
 

@@ -49,6 +49,7 @@ namespace sangi {
               vertices_(graph.vertices_)
     {}
 
+
     template <class T>
     Graph<T>& Graph::operator=(const Graph<T>& graph) {
         if (this == &graph) {
@@ -61,11 +62,13 @@ namespace sangi {
         return *this;
     }
 
+
     template<class T>
     Vertex<T> Graph::AddVertex(T value) {
         Vertex<T> v(value);
         vertices_.push_back(v);
     }
+
 
     template<class T>
     void Graph::RemoveVertex(T value) {
@@ -73,10 +76,12 @@ namespace sangi {
         std::remove(vertices_.begin(), vertices_.end(), v);
     }
 
+
     template<class T>
     void Graph::RemoveVertex(Vertex<T> vertex) {
         std::remove(vertices_.begin(), vertices_.end(), vertex);
     }
+
 
     template<class T>
     Edge<T> Graph::AddEdge(T src, T dst, double weight) {
@@ -84,12 +89,12 @@ namespace sangi {
         edges_.push_back(e);
     }
 
+
     template<class T>
     void Graph::RemoveEdge(Edge<T> edge) {
         std::remove(edges_.begin(), edges_.end(), edge);
     }
-
-
+    
 } // namespace sangi
 
 #endif //ALGORITHMS_GRAPH_HPP
