@@ -4,7 +4,6 @@
 
 #include <vector>
 #include <cmath>
-#include <utility>
 #include "algorithms/sort.hpp"
 #include "algorithms/utility.hpp"
 
