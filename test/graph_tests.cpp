@@ -5,3 +5,6 @@
 #include <gtest/gtest.h>
 #include "data/graph.hpp"
 
+TEST(TestGraph, T) {
+    sangi::Graph<int> v{};
+}

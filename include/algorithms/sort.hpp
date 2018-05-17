@@ -12,6 +12,8 @@ namespace sangi {
 
     template <class Iterator>
     void QuickSort(Iterator begin, Iterator end) {
+        using std::swap;
+
         size_t size = end - begin;
 
         // Base case
@@ -24,13 +26,13 @@ namespace sangi {
         typename std::iterator_traits<Iterator>::value_type pivot_value = *(begin + pivot_index);
 
         // Place pivot at the beginning for iteration over all other values
-        std::swap(*begin, *(begin + pivot_index));
+        swap(*begin, *(begin + pivot_index));
 
         // Place all smaller elements on the left side of the container
         int i = 1;
         for (size_t j = 1; j < size; ++j) {
             if (*(begin + j) < pivot_value) {
-                std::swap(*(begin + j), *(begin + i));
+                swap(*(begin + j), *(begin + i));
                 ++i;
             }
         }
@@ -39,7 +41,7 @@ namespace sangi {
         auto new_pivot_pos = begin + i - 1;
 
         // Swap pivot with last element smaller than pivot
-        std::swap(*begin, *new_pivot_pos);
+        swap(*begin, *new_pivot_pos);
 
         // Sort left/right of new pivot index
         QuickSort(begin, new_pivot_pos);
@@ -48,6 +50,8 @@ namespace sangi {
 
     template <class Iterator>
     void MergeSort(Iterator begin, Iterator end) {
+        using std::copy;
+
         size_t size = end - begin;
 
         // Base case
@@ -83,16 +87,16 @@ namespace sangi {
 
         // Place remaining elements from left side
         if (i < left_size) {
-            std::copy(begin + i, right_start, temp.begin() + k);
+            copy(begin + i, right_start, temp.begin() + k);
         }
 
         // Place remaining elements from right side
         if (j < right_size) {
-            std::copy(right_start + j, end, temp.begin() + k);
+            copy(right_start + j, end, temp.begin() + k);
         }
 
         // Place values back into container
-        std::copy(temp.begin(), temp.end(), begin);
+        copy(temp.begin(), temp.end(), begin);
     }
 
     // Non-comparative signed integer sort

@@ -5,15 +5,12 @@
 #ifndef ALGORITHMS_VERTEX_HPP
 #define ALGORITHMS_VERTEX_HPP
 
-#include <set>
-
-using std::set;
+#include <algorithm>
+#include <vector>
+#include "edge.hpp"
 
 namespace sangi {
 
-    // Edge forward declaration
-    template<class T>
-    class Edge;
 
     template<class T>
     class Vertex {
@@ -23,23 +20,24 @@ namespace sangi {
         ~Vertex() = default;
         Vertex<T>& operator=(const Vertex<T>& vertex);
 
-        // Vertex Methods
-        void RemoveInEdge(const Edge<T>& edge);
-        void RemoveOutEdge(const Edge<T>& edge);
-        void AddInEdge(const Edge<T>& edge)                 { in_edges_.insert(edge); }
-        void AddOutEdge(const Edge<T>& edge)                { out_edges_.insert(edge); }
+        void RemoveInEdge(const Edge<T>& edge)              { std::remove(in_edges_.begin(), in_edges_.end(), edge); }
+        void RemoveOutEdge(const Edge<T>& edge)             { std::remove(out_edges_.begin(), out_edges_.end(), edge); }
+
+        void AddInEdge(const Edge<T>& edge)                 { in_edges_.push_back(edge); }
+        void AddOutEdge(const Edge<T>& edge)                { out_edges_.push_back(edge); }
+
         size_t GetInEdgeCount() const                       { return in_edges_.size(); }
         size_t GetOutEdgeCount() const                      { return out_edges_.size(); }
-        set<Edge<T>> GetInEdges() const                     { return in_edges_; }
-        set<Edge<T>> GetOutEdges() const                    { return out_edges_; }
+
+        const std::vector<Edge<T>> GetInEdges() const       { return in_edges_; }
+        const std::vector<Edge<T>> GetOutEdges() const      { return out_edges_; }
         const T& GetData() const                            { return data_; }
     private:
         T data_;
-        set<Edge<T>> in_edges_;
-        set<Edge<T>> out_edges_;
+        std::vector<Edge<T>> in_edges_;
+        std::vector<Edge<T>> out_edges_;
     }; // class Vertex
 
-    // Class Method Definitions
 
     template<class T>
     Vertex<T>::Vertex(const Vertex<T>& vertex)
@@ -62,16 +60,6 @@ namespace sangi {
     }
 
 
-    template<class T>
-    void Vertex<T>::RemoveInEdge(const Edge<T>& edge) {
-        std::remove(in_edges_.begin(), in_edges_.end(), edge);
-    }
-
-
-    template<class T>
-    void Vertex<T>::RemoveOutEdge(const Edge<T>& edge) {
-        std::remove(out_edges_.begin(), out_edges_.end(), edge);
-    }
 
 } // namespace sangi
 

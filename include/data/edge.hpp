@@ -5,43 +5,35 @@
 #ifndef ALGORITHMS_EDGE_HPP
 #define ALGORITHMS_EDGE_HPP
 
-#include "vertex.hpp"
 
 namespace sangi {
+
+    template<class T> class Vertex;
 
     template<class T>
     class Edge {
     public:
-        Edge(const Vertex<T>& src,
-             const Vertex<T>& dst,
-             const double weight);
+        Edge(Vertex<T>& src, Vertex<T>& dst, const double weight);
         Edge(const Edge<T>& edge);
-        ~Edge();
+        ~Edge() = default;
         Edge<T>& operator=(const Edge<T>& edge);
 
-        // Edge Methods
-        const Vertex<T> GetSrc() const                       { return src_; }
-        const Vertex<T> GetDst() const                       { return dst_; }
-        double GetWeight() const                             { return weight_; }
+        const Vertex<T>* GetSrc() const                       { return src_; }
+        const Vertex<T>* GetDst() const                       { return dst_; }
+        double GetWeight() const                              { return weight_; }
     private:
-        Vertex<T> src_;
-        Vertex<T> dst_;
+        Vertex<T>* src_;
+        Vertex<T>* dst_;
         double weight_;
     }; // class Edge
 
-    // Class Method Definitions
 
     template<class T>
-    Edge<T>::Edge(const Vertex<T>& src,
-               const Vertex<T>& dst,
+    Edge<T>::Edge(Vertex<T>& src, Vertex<T>& dst,
                const double weight)
-            : src_(src),
-              dst_(dst),
-              weight_(weight)
-    {
-        src_.AddOutEdge(*this);
-        dst_.AddInEdge(*this);
-    }
+            : src_(&src),
+              dst_(&dst),
+              weight_(weight) {}
 
 
     template<class T>
@@ -50,13 +42,6 @@ namespace sangi {
               dst_(edge.dst_),
               weight_(edge.weight_)
     {}
-
-
-    template<class T>
-    Edge<T>::~Edge() {
-        src_.RemoveOutEdge(*this);
-        dst_.RemoveInEdge(*this);
-    }
 
 
     template<class T>
