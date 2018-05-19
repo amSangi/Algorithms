@@ -10,11 +10,11 @@
 
 namespace sangi {
 
-    template <class T, template<class> class Container>
+    template <class T>
     class Graph {
         typedef typename std::vector<T> VertexVector;
-        typedef typename Container<Edge<T>> EdgeContainer;
-        typedef typename std::unordered_map<T, EdgeContainer> AdjList;
+        typedef typename std::vector<Edge<T>> EdgeVector;
+        typedef typename std::unordered_map<T, EdgeVector> AdjList;
     public:
         Graph() = default;
 
@@ -22,7 +22,7 @@ namespace sangi {
             adj_list[vertex];
         }
 
-        bool AddVertex(const T vertex, const EdgeContainer edge_container) {
+        bool AddVertex(const T vertex, const EdgeVector edge_container) {
             adj_list.insert(vertex, edge_container);
         }
 
@@ -31,9 +31,9 @@ namespace sangi {
         bool AddEdge(const Edge<T> edge);
         void RemoveEdge(const Edge<T> edge);
 
-        const EdgeContainer GetAdjacent(const T& vertex) const;
+        const EdgeVector GetAdjacent(const T& vertex) const;
 
-        const EdgeContainer& GetEdges(const T& vertex) const;
+        const EdgeVector& GetEdges(const T& vertex) const;
         const VertexVector& GetVertices() const;
 
         size_t GetVertexCount() const                                   { return adj_list.size(); }
