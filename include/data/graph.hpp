@@ -13,82 +13,88 @@ namespace sangi {
 
     template <class T>
     class Graph {
-        using iter_t = typename std::vector<T>::iterator;
+        using v_iter = typename std::set<Vertex<T>>::iterator;
+        using e_iter = typename std::set<Edge<T>>::iterator;
     public:
         Graph() = default;
-        Graph(const std::vector<Edge<T>>& edges,
-              const std::vector<Vertex<T>>& vertices);
-        Graph(const Graph<T>& graph);
-        ~Graph() = default;
-        Graph<T>& operator=(const Graph<T>& graph);
 
-        void RemoveVertex(const Vertex<T>& vertex);
-        void AddVertex(const Vertex<T>& value);
+        bool AddVertex(const Vertex<T>& vertex);
+        bool RemoveVertex(const Vertex<T>& vertex);
 
-        void RemoveEdge(const Edge<T>& edge);
-        void AddEdge(const Edge<T>& edge);
+        bool AddEdge(const Edge<T>& edge);
+        bool RemoveEdge(const Edge<T>& edge);
 
         size_t GetVertexCount() const                               { return vertices_.size(); }
         size_t GetEdgeCount() const                                 { return edges_.size(); }
 
-        const std::vector<Edge<T>>& GetEdges() const                { return edges_; }
-        const std::vector<Vertex<T>>& GetVertices() const           { return vertices_; }
+        const std::set<Edge<T>>& GetEdges() const                   { return edges_; }
+        const std::set<Vertex<T>>& GetVertices() const              { return vertices_; }
     private:
-        std::vector<Edge<T>> edges_;
-        std::vector<Vertex<T>> vertices_;
-
+        std::set<Edge<T>> edges_;
+        std::set<Vertex<T>> vertices_;
     }; // class Graph
 
 
-    template <class T>
-    Graph<T>::Graph(const Graph<T>& graph)
-            : edges_(graph.edges_),
-              vertices_(graph.vertices_)
-    {}
+    template<class T>
+    bool Graph<T>::AddVertex(const Vertex<T> &vertex){
+        return vertices_.insert(vertex).second;
+    }
 
 
     template<class T>
-    Graph<T>::Graph(const std::vector<Edge<T>>& edges,
-                    const std::vector<Vertex<T>>& vertices)
-            : edges_(edges),
-              vertices_(vertices)
-    {}
+    bool Graph<T>::RemoveVertex(const Vertex<T>& vertex) {
+        v_iter it = vertices_.find(vertex);
 
+        bool contains_vertex = it != vertices_.end();
 
-    template <class T>
-    Graph<T>& Graph<T>::operator=(const Graph<T>& graph) {
-        if (this == &graph) {
-            return *this;
+        // Remove all edges connected to vertex
+        if (contains_vertex) {
+            Vertex<T> v = *it;
+
+            for (auto& e : v.in_edges_) {
+                e.src_.out_edges_.erase(e);
+            }
+
+            for (auto& e : v.out_edges_) {
+                e.dst_.in_edges_.erase(e);
+            }
+
+            v.in_edges_.clear();
+            v.out_edges_.clear();
         }
 
-        edges_ = graph.edges_;
-        vertices_ = graph.vertices_;
-        return *this;
+        return contains_vertex;
     }
 
 
     template<class T>
-    void Graph<T>::AddVertex(const Vertex<T>& value) {
-        // TODO: Finish Impl - add unique vertices
+    bool Graph<T>::AddEdge(const Edge<T>& edge) {
+        bool added = edges_.insert(edge).second;
+
+        if (added) {
+            edge.src_.AddOutEdge(edge);
+            edge.dst_.AddInEdge(edge);
+        }
+
+        return added;
     }
 
 
     template<class T>
-    void Graph<T>::RemoveVertex(const Vertex<T>& vertex) {
-        // TODO: Finish Impl - remove all edges with vertex
+    bool Graph<T>::RemoveEdge(const Edge<T>& edge) {
+        e_iter it = edges_.find(edge);
+
+        bool contains_edge = (it != edges_.end());
+
+        if (contains_edge) {
+            edge.src_.out_edges_.erase(edge);
+            edge.dst_.in_edges_.erase(edge);
+            edges_.erase(it);
+        }
+
+        return contains_edge;
     }
 
-
-    template<class T>
-    void Graph<T>::AddEdge(const Edge<T>& edge) {
-        // TODO: Finish Impl - add unique edges
-    }
-
-
-    template<class T>
-    void Graph<T>::RemoveEdge(const Edge<T>& edge) {
-        // TODO: Finish Impl - remove edge from all vertices
-    }
 
 } // namespace sangi
 
