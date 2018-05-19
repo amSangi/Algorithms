@@ -8,7 +8,6 @@
 #include <vector>
 #include <list>
 #include "data/graph.hpp"
-#include "data/vertex.hpp"
 
 using std::vector;
 using std::list;
@@ -19,65 +18,65 @@ namespace sangi {
     class PathFinder {
     public:
         // Uninformed Searches
-        list<Vertex<T>> BreadthFirstSearch(const Graph<T>& graph, const Vertex<T>& node);
-        list<Vertex<T>> DepthFirstSearch(const Graph<T>& graph, const Vertex<T>& node);
-        list<Vertex<T>> BranchAndBound(const Graph<T>& graph, const Vertex<T>& node);
-        list<Vertex<T>> IterativeDeepening(const Graph<T>& graph, const Vertex<T>& node);
-        list<Vertex<T>> BidirectionalSearch(const Graph<T>& graph, const Vertex<T>& node);
+        list<T> BreadthFirstSearch(const Graph<T>& graph, const T& node);
+        list<T> DepthFirstSearch(const Graph<T>& graph, const T& node);
+        list<T> BranchAndBound(const Graph<T>& graph, const T& node);
+        list<T> IterativeDeepening(const Graph<T>& graph, const T& node);
+        list<T> BidirectionalSearch(const Graph<T>& graph, const T& node);
 
         // Informed Searches
-        list<Vertex<T>> BestFirstSearch(const Graph<T>& graph, const Vertex<T>& node);
-        list<Vertex<T>> ASharp(const Graph<T>& graph, const Vertex<T>& node);
-        list<Vertex<T>> GeneticSearch(const Graph<T>& graph, const Vertex<T>& node);
+        list<T> BestFirstSearch(const Graph<T>& graph, const T& node);
+        list<T> ASharp(const Graph<T>& graph, const T& node);
+        list<T> GeneticSearch(const Graph<T>& graph, const T& node);
 
     }; // class PathFinder
 
     // Class Method Definitions
 
     template<class T>
-    list<Vertex<T>> PathFinder::BreadthFirstSearch(const Graph<T>& graph, const Vertex<T>& node) {
+    list<T> PathFinder::BreadthFirstSearch(const Graph<T>& graph, const T& node) {
         // TODO: Finish Impl
     }
 
 
     template<class T>
-    list<Vertex<T>> PathFinder::DepthFirstSearch(const Graph<T>& graph, const Vertex<T>& node) {
+    list<T> PathFinder::DepthFirstSearch(const Graph<T>& graph, const T& node) {
         // TODO: Finish Impl
     }
 
 
     template<class T>
-    list<Vertex<T>> PathFinder::BranchAndBound(const Graph<T>& graph, const Vertex<T>& node) {
+    list<T> PathFinder::BranchAndBound(const Graph<T>& graph, const T& node) {
         // TODO: Finish Impl
     }
 
 
     template<class T>
-    list<Vertex<T>> PathFinder::IterativeDeepening(const Graph<T> &graph, const Vertex<T> &node){
+    list<T> PathFinder::IterativeDeepening(const Graph<T>& graph, const T& node) {
         // TODO: Finish Impl
     }
 
 
     template<class T>
-    list<Vertex<T>> PathFinder::BidirectionalSearch(const Graph<T>& graph, const Vertex<T>& node) {
+    list<T> PathFinder::BidirectionalSearch(const Graph<T>& graph, const T& node) {
         // TODO: Finish Impl
     }
 
 
     template<class T>
-    list<Vertex<T>> PathFinder::BestFirstSearch(const Graph<T>& graph, const Vertex<T>& node) {
+    list<T> PathFinder::BestFirstSearch(const Graph<T>& graph, const T& node) {
         // TODO: Finish Impl
     }
 
 
     template<class T>
-    list<Vertex<T>> PathFinder::ASharp(const Graph<T>& graph, const Vertex<T>& node) {
+    list<T> PathFinder::ASharp(const Graph<T>& graph, const T& node) {
         // TODO: Finish Impl
     }
 
 
     template<class T>
-    list<Vertex<T>> PathFinder::GeneticSearch(const Graph<T>& graph, const Vertex<T>& node) {
+    list<T> PathFinder::GeneticSearch(const Graph<T>& graph, const T& node) {
         // TODO: Finish Impl
     }
 
