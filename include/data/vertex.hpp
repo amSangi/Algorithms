@@ -20,8 +20,7 @@ namespace sangi {
         Vertex(const Vertex<T>& vertex);
         ~Vertex() = default;
         Vertex<T>& operator=(const Vertex<T>& vertex);
-
-
+        
         size_t GetDegree() const                                { return in_edges_.size() + out_edges_.size(); }
         size_t GetInDegree() const                              { return in_edges_.size(); }
         size_t GetOutDegree() const                             { return out_edges_.size(); }
@@ -33,12 +32,6 @@ namespace sangi {
         T data_;
         std::set<Edge<T>> in_edges_;
         std::set<Edge<T>> out_edges_;
-
-        void RemoveInEdge(const Edge<T>& edge)                  { std::remove(in_edges_.begin(), in_edges_.end(), edge); }
-        void RemoveOutEdge(const Edge<T>& edge)                 { std::remove(out_edges_.begin(), out_edges_.end(), edge); }
-
-        void AddInEdge(const Edge<T>& edge)                     { in_edges_.push_back(edge); }
-        void AddOutEdge(const Edge<T>& edge)                    { out_edges_.push_back(edge); }
     }; // class Vertex
 
 

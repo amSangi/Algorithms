@@ -14,7 +14,8 @@ namespace sangi {
     class Edge {
         template<class U> friend class Graph;
     public:
-        Edge(Vertex<T>& src, Vertex<T>& dst, const double weight) : src_(src), dst_(dst), weight_(weight) {}
+        Edge(Vertex<T>& src, Vertex<T>& dst, const double weight)
+                : src_(src), dst_(dst), weight_(weight) {}
 
         const Vertex<T>& GetSrc() const                       { return src_; }
         const Vertex<T>& GetDst() const                       { return dst_; }
