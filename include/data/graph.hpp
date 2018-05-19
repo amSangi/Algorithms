@@ -5,95 +5,41 @@
 #ifndef ALGORITHMS_GRAPH_HPP
 #define ALGORITHMS_GRAPH_HPP
 
-#include <set>
+#include <unordered_map>
 #include "edge.hpp"
-#include "vertex.hpp"
 
 namespace sangi {
 
-    template <class T>
+    template <class T, template<class> class Container>
     class Graph {
-        using v_iter = typename std::set<Vertex<T>>::iterator;
-        using e_iter = typename std::set<Edge<T>>::iterator;
+        typedef typename std::vector<T> VertexVector;
+        typedef typename Container<Edge<T>> EdgeContainer;
+        typedef typename std::unordered_map<T, EdgeContainer> AdjList;
     public:
         Graph() = default;
 
-        bool AddVertex(const Vertex<T>& vertex);
-        bool RemoveVertex(const Vertex<T>& vertex);
+        bool AddVertex(const T vertex) {
+            adj_list[vertex];
+        }
 
-        bool AddEdge(const Edge<T>& edge);
-        bool RemoveEdge(const Edge<T>& edge);
+        bool AddVertex(const T vertex, const EdgeContainer edge_container) {
+            adj_list.insert(vertex, edge_container);
+        }
 
-        size_t GetVertexCount() const                               { return vertices_.size(); }
-        size_t GetEdgeCount() const                                 { return edges_.size(); }
+        void RemoveVertex(const T vertex);
 
-        const std::set<Edge<T>>& GetEdges() const                   { return edges_; }
-        const std::set<Vertex<T>>& GetVertices() const              { return vertices_; }
+        bool AddEdge(const Edge<T> edge);
+        void RemoveEdge(const Edge<T> edge);
+
+        const EdgeContainer GetAdjacent(const T& vertex) const;
+
+        const EdgeContainer& GetEdges(const T& vertex) const;
+        const VertexVector& GetVertices() const;
+
+        size_t GetVertexCount() const                                   { return adj_list.size(); }
     private:
-        std::set<Edge<T>> edges_;
-        std::set<Vertex<T>> vertices_;
+        AdjList adj_list;
     }; // class Graph
-
-
-    template<class T>
-    bool Graph<T>::AddVertex(const Vertex<T> &vertex){
-        return vertices_.insert(vertex).second;
-    }
-
-
-    template<class T>
-    bool Graph<T>::RemoveVertex(const Vertex<T>& vertex) {
-        v_iter it = vertices_.find(vertex);
-
-        bool contains_vertex = it != vertices_.end();
-
-        // Remove all edges connected to vertex
-        if (contains_vertex) {
-            Vertex<T> v = *it;
-
-            for (auto& e : v.in_edges_) {
-                e.src_.out_edges_.erase(e);
-            }
-
-            for (auto& e : v.out_edges_) {
-                e.dst_.in_edges_.erase(e);
-            }
-
-            v.in_edges_.clear();
-            v.out_edges_.clear();
-        }
-
-        return contains_vertex;
-    }
-
-
-    template<class T>
-    bool Graph<T>::AddEdge(const Edge<T>& edge) {
-        bool added = edges_.insert(edge).second;
-
-        if (added) {
-            edge.src_.AddOutEdge(edge);
-            edge.dst_.AddInEdge(edge);
-        }
-
-        return added;
-    }
-
-
-    template<class T>
-    bool Graph<T>::RemoveEdge(const Edge<T>& edge) {
-        e_iter it = edges_.find(edge);
-
-        bool contains_edge = (it != edges_.end());
-
-        if (contains_edge) {
-            edge.src_.out_edges_.erase(edge);
-            edge.dst_.in_edges_.erase(edge);
-            edges_.erase(it);
-        }
-
-        return contains_edge;
-    }
 
 
 } // namespace sangi
