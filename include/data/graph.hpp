@@ -18,27 +18,97 @@ namespace sangi {
     public:
         Graph() = default;
 
-        bool AddVertex(const T vertex) {
-            adj_list[vertex];
+        bool AddVertex(const T vertex)                          { adj_list_[vertex]; }
+
+        void AddVertex(const T vertex,
+                       const EdgeVector edge_vector) {
+            EdgeVector vec = adj_list_[vertex];
+            vec.insert(vec.end(), edge_vector.begin(), edge_vector.end());
         }
 
-        bool AddVertex(const T vertex, const EdgeVector edge_container) {
-            adj_list.insert(vertex, edge_container);
+
+        void RemoveVertex(const T vertex) {
+            auto it = adj_list_.find(vertex);
+
+            if (it != adj_list_.end()) {
+                // Remove vertex and its edge list
+                adj_list_.erase(it);
+
+                // Remove edges connecting to vertex
+                RemoveConnectedEdges(vertex);
+            }
         }
 
-        void RemoveVertex(const T vertex);
+        void AddEdge(const Edge<T> edge) {
+            T src = edge.GetSrc();
+            T dst = edge.GetDst();
 
-        bool AddEdge(const Edge<T> edge);
-        void RemoveEdge(const Edge<T> edge);
+            adj_list_[src].push_back(edge);
+            adj_list_[dst].push_back(edge);
+        }
 
-        const EdgeVector GetAdjacent(const T& vertex) const;
+        void AddEdges(const EdgeVector edge_vector) {
+            for (Edge<T>& edge : edge_vector) {
+                AddEdge(edge);
+            }
+        }
 
-        const EdgeVector& GetEdges(const T& vertex) const;
-        const VertexVector& GetVertices() const;
+        void RemoveEdge(const Edge<T> edge) {
 
-        size_t GetVertexCount() const                                   { return adj_list.size(); }
+            for (auto&[v, edge_vector] : adj_list_) {
+                edge_vector.erase(
+                        std::remove(
+                                edge_vector.begin(),
+                                edge_vector.end(),
+                                edge),
+                        edge_vector.end());
+            }
+        }
+
+        const VertexVector GetAdjacent(const T& vertex) const {
+            VertexVector v;
+            for (Edge<T>& edge : adj_list_[vertex]) {
+                T src = edge.GetSrc();
+                T dst = edge.GetDst();
+                if (src == vertex) { v.push_back(dst); }
+                if (dst == vertex) { v.push_back(src); }
+            }
+
+            return v;
+        }
+
+        const VertexVector GetVertices() const {
+            VertexVector vec;
+
+            for (auto&[v, edge_vector] : adj_list_) {
+                vec.push_back(v);
+            }
+
+            return vec;
+        }
+
+        const EdgeVector& GetEdges(const T& vertex) const               { return adj_list_[vertex]; }
+
+        size_t GetVertexCount() const                                   { return adj_list_.size(); }
     private:
-        AdjList adj_list;
+        AdjList adj_list_;
+
+        void RemoveConnectedEdges(const T& vertex) {
+
+            auto IsConnectedEdge = [vertex](const Edge<T>& edge) { return edge.GetSrc() == vertex
+                                                                   || edge.GetDst() == vertex; };
+
+            // Remove all edges connected to vertex
+            for (auto&[v, edge_vector] : adj_list_) {
+
+                edge_vector.erase(
+                        std::remove_if(
+                                edge_vector.begin(),
+                                edge_vector.end(),
+                                IsConnectedEdge),
+                        edge_vector.end());
+            }
+        }
     }; // class Graph
 
 
