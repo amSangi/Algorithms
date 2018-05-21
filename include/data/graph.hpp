@@ -18,11 +18,11 @@ namespace sangi {
     public:
         Graph() = default;
 
-        bool AddVertex(const T vertex)                          { adj_list_[vertex]; }
+        void AddVertex(const T vertex)                          { adj_list_[vertex]; }
 
         void AddVertex(const T vertex,
                        const EdgeVector edge_vector) {
-            EdgeVector vec = adj_list_[vertex];
+            EdgeVector& vec = adj_list_[vertex];
             vec.insert(vec.end(), edge_vector.begin(), edge_vector.end());
         }
 
@@ -87,7 +87,7 @@ namespace sangi {
             return vec;
         }
 
-        const EdgeVector& GetEdges(const T& vertex) const               { return adj_list_[vertex]; }
+        const EdgeVector& GetEdges(const T& vertex)                     { return adj_list_[vertex]; }
 
         size_t GetVertexCount() const                                   { return adj_list_.size(); }
     private:
