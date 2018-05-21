@@ -44,7 +44,9 @@ namespace sangi {
             T dst = edge.GetDst();
 
             adj_list_[src].push_back(edge);
-            adj_list_[dst].push_back(edge);
+            if (src != dst) {
+                adj_list_[dst].push_back(edge);
+            }
         }
 
         void AddEdges(const EdgeVector edge_vector) {
@@ -65,9 +67,10 @@ namespace sangi {
             }
         }
 
-        const VertexVector GetAdjacent(const T& vertex) const {
+        const VertexVector GetAdjacent(const T& vertex) {
             VertexVector v;
-            for (Edge<T>& edge : adj_list_[vertex]) {
+            EdgeVector& edges = adj_list_[vertex];
+            for (Edge<T>& edge : edges) {
                 T src = edge.GetSrc();
                 T dst = edge.GetDst();
                 if (src == vertex) { v.push_back(dst); }

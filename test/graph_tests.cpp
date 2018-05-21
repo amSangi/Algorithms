@@ -29,6 +29,35 @@ TEST_F(GraphTest, AddVertex) {
     }
 }
 
+TEST_F(GraphTest, AddEdge) {
+    Edge<int> e1(0, 2, 3.5);
+
+    EXPECT_EQ(0, g.GetEdges(0).size());
+    EXPECT_EQ(0, g.GetEdges(2).size());
+
+    g.AddEdge(e1);
+
+    std::vector<Edge<int>> zero_edges = g.GetEdges(0);
+    std::vector<Edge<int>> two_edges = g.GetEdges(2);
+
+    EXPECT_EQ(1, zero_edges.size());
+    EXPECT_EQ(1, two_edges.size());
+
+    // Get both edges added
+    Edge<int> zero_edge = zero_edges[0];
+    Edge<int> two_edge = two_edges[0];
+
+    // Check forward direction values
+    EXPECT_EQ(0, zero_edge.GetSrc());
+    EXPECT_EQ(2, zero_edge.GetDst());
+    EXPECT_EQ(3.5, zero_edge.GetWeight());
+
+    // Check reverse direction values
+    EXPECT_EQ(0, two_edge.GetSrc());
+    EXPECT_EQ(2, two_edge.GetDst());
+    EXPECT_EQ(3.5, two_edge.GetWeight());
+}
+
 TEST_F(GraphTest, AddVertexWithEdges) {
     Edge<int> e1(5, 1, 5.5);
     Edge<int> e2(5, 2, 3.3);
@@ -44,14 +73,18 @@ TEST_F(GraphTest, AddVertexWithEdges) {
     // Check to see if edges were added
     std::vector<Edge<int>> edges = g.GetEdges(5);
     EXPECT_EQ(3, edges.size());
-    auto it1 = std::find(edges.begin(), edges.end(), e1);
-    auto it2 = std::find(edges.begin(), edges.end(), e2);
-    auto it3 = std::find(edges.begin(), edges.end(), e3);
+
+    auto begin = edges.begin();
+    auto end = edges.end();
+
+    auto it1 = std::find(begin, end, e1);
+    auto it2 = std::find(begin, end, e2);
+    auto it3 = std::find(begin, end, e3);
 
     // Check to see if edges exist
-    EXPECT_TRUE(it1 != edges.end());
-    EXPECT_TRUE(it2 != edges.end());
-    EXPECT_TRUE(it3 != edges.end());
+    EXPECT_TRUE(it1 != end);
+    EXPECT_TRUE(it2 != end);
+    EXPECT_TRUE(it3 != end);
 }
 
 TEST_F(GraphTest, AddVertexWithOtherImplicitVertexAdd) {
@@ -82,17 +115,47 @@ TEST_F(GraphTest, RemoveVertex) {
 TEST_F(GraphTest, RemoveVertexWithEdges) {
     Edge<int> e1(0, 1, 5.5);
     Edge<int> e2(0, 2, 5.5);
-    Edge<int> e3(5, 0, 2.3);
+    // Check only one edge added in ciruclar reference
+    Edge<int> e3(0, 0, 2.3);
     Edge<int> e4(3, 0, 2.01);
 
     std::vector<Edge<int>> edge_vector{e1, e2, e3, e4};
     g.AddEdges(edge_vector);
 
-    // Vertex count after addition of edges
+    // Edge count after addition
+    EXPECT_EQ(4, g.GetEdges(0).size());
+    EXPECT_EQ(1, g.GetEdges(1).size());
+    EXPECT_EQ(1, g.GetEdges(2).size());
+    EXPECT_EQ(1, g.GetEdges(3).size());
+
+    g.RemoveVertex(0);
+
+    // Check edge count after removal
+    EXPECT_EQ(0, g.GetEdges(1).size());
+    EXPECT_EQ(0, g.GetEdges(2).size());
+    EXPECT_EQ(0, g.GetEdges(3).size());
+}
+
+
+TEST_F(GraphTest, AddEdgesWithImplicitVerticesAdd) {
+    Edge<int> e1(0, 1, 5.5);
+    Edge<int> e2(0, 2, 5.5);
+    // New vertex, 5, is implicitly added
+    Edge<int> e3(5, 0, 2.3);
+    Edge<int> e4(3, 0, 2.01);
+
+    // Check vertex count before edge addition
+    EXPECT_EQ(4, g.GetVertexCount());
+    EXPECT_EQ(4, g.GetVertices().size());
+
+    std::vector<Edge<int>> edge_vector{e1, e2, e3, e4};
+    g.AddEdges(edge_vector);
+
+    // Check vertex count after edge addition
     EXPECT_EQ(5, g.GetVertexCount());
     EXPECT_EQ(5, g.GetVertices().size());
 
-    // Edge count after addition
+    // Edge counts after addition
     EXPECT_EQ(4, g.GetEdges(0).size());
     EXPECT_EQ(1, g.GetEdges(1).size());
     EXPECT_EQ(1, g.GetEdges(2).size());
@@ -101,28 +164,57 @@ TEST_F(GraphTest, RemoveVertexWithEdges) {
 
     g.RemoveVertex(0);
 
-    // Vertex count after removal
-    EXPECT_EQ(4, g.GetVertexCount());
-    std::vector<int> v = g.GetVertices();
-    EXPECT_EQ(4, v.size());
-
-    // Check edge count after removal
+    // Check edge counts after removal
     EXPECT_EQ(0, g.GetEdges(1).size());
     EXPECT_EQ(0, g.GetEdges(2).size());
     EXPECT_EQ(0, g.GetEdges(3).size());
     EXPECT_EQ(0, g.GetEdges(5).size());
+
 }
 
-TEST_F(GraphTest, AddEdge) {}
+TEST_F(GraphTest, RemoveEdge) {
+    Edge<int> e1(0, 1, 5.5);
 
-TEST_F(GraphTest, AddEdgeWithImplicitVertexAdd) {}
+    // Check edges before addition
+    EXPECT_EQ(0, g.GetEdges(0).size());
+    EXPECT_EQ(0, g.GetEdges(1).size());
 
-TEST_F(GraphTest, AddMultipleEdges) {}
+    g.AddEdge(e1);
 
-TEST_F(GraphTest, AddEdgesWithImplicitVerticesAdd) {}
+    // Check edges after addition
+    EXPECT_EQ(1, g.GetEdges(0).size());
+    EXPECT_EQ(1, g.GetEdges(1).size());
 
-TEST_F(GraphTest, RemoveEdge) {}
+    g.RemoveEdge(e1);
 
-TEST_F(GraphTest, GetAdjacent) {}
+    // Check edges after removal
+    EXPECT_EQ(0, g.GetEdges(0).size());
+    EXPECT_EQ(0, g.GetEdges(1).size());
+}
+
+TEST_F(GraphTest, GetAdjacent) {
+    Edge<int> e1{0, 1, 5.5};
+    Edge<int> e2{0, 2, 3.5};
+    Edge<int> e3{3, 0, 2.2};
+
+    g.AddEdge(e1);
+    g.AddEdge(e2);
+    g.AddEdge(e3);
+
+    std::vector<int> adj_vertices = g.GetAdjacent(0);
+    EXPECT_EQ(3, adj_vertices.size());
+
+    // Check correct values added
+    auto begin = adj_vertices.begin();
+    auto end = adj_vertices.end();
+
+    auto it1 = std::find(begin, end, 1);
+    auto it2 = std::find(begin, end, 2);
+    auto it3 = std::find(begin, end, 3);
+
+    EXPECT_TRUE(it1 != end);
+    EXPECT_TRUE(it2 != end);
+    EXPECT_TRUE(it3 != end);
+}
 
 
