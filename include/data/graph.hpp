@@ -22,8 +22,8 @@ namespace sangi {
 
         void AddVertex(const T vertex,
                        const EdgeVector edge_vector) {
-            EdgeVector& vec = adj_list_[vertex];
-            vec.insert(vec.end(), edge_vector.begin(), edge_vector.end());
+            adj_list_[vertex];
+            AddEdges(edge_vector);
         }
 
 
@@ -48,7 +48,7 @@ namespace sangi {
         }
 
         void AddEdges(const EdgeVector edge_vector) {
-            for (Edge<T>& edge : edge_vector) {
+            for (const Edge<T>& edge : edge_vector) {
                 AddEdge(edge);
             }
         }

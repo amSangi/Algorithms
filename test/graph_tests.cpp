@@ -48,14 +48,70 @@ TEST_F(GraphTest, AddVertexWithEdges) {
     auto it2 = std::find(edges.begin(), edges.end(), e2);
     auto it3 = std::find(edges.begin(), edges.end(), e3);
 
+    // Check to see if edges exist
     EXPECT_TRUE(it1 != edges.end());
     EXPECT_TRUE(it2 != edges.end());
     EXPECT_TRUE(it3 != edges.end());
 }
 
-TEST_F(GraphTest, AddVertexWithOtherImplicitVertexAdd) {}
+TEST_F(GraphTest, AddVertexWithOtherImplicitVertexAdd) {
+    Edge<int> e1(0, 1, 5.5);
+    Edge<int> e2(0, 2, 5.5);
+    Edge<int> e3(0, 3, 5.5);
 
-TEST_F(GraphTest, RemoveVertex) {}
+    // Add vertex, 5, by adding edges
+    std::vector<Edge<int>> edge_vecctor{e1, e2, e3};
+    g_empty.AddVertex(1, edge_vecctor);
+
+    EXPECT_EQ(4, g_empty.GetVertexCount());
+
+    // Check vertices after addition
+    std::vector<int> v = g_empty.GetVertices();
+    for (int i = 0 ; i < 4; ++i) {
+        auto it = std::find(v.begin(), v.end(), i);
+        EXPECT_TRUE(it != v.end());
+    }
+}
+
+TEST_F(GraphTest, RemoveVertex) {
+    g.RemoveVertex(0);
+    EXPECT_EQ(3, g.GetVertexCount());
+    EXPECT_EQ(3, g.GetVertices().size());
+}
+
+TEST_F(GraphTest, RemoveVertexWithEdges) {
+    Edge<int> e1(0, 1, 5.5);
+    Edge<int> e2(0, 2, 5.5);
+    Edge<int> e3(5, 0, 2.3);
+    Edge<int> e4(3, 0, 2.01);
+
+    std::vector<Edge<int>> edge_vector{e1, e2, e3, e4};
+    g.AddEdges(edge_vector);
+
+    // Vertex count after addition of edges
+    EXPECT_EQ(5, g.GetVertexCount());
+    EXPECT_EQ(5, g.GetVertices().size());
+
+    // Edge count after addition
+    EXPECT_EQ(4, g.GetEdges(0).size());
+    EXPECT_EQ(1, g.GetEdges(1).size());
+    EXPECT_EQ(1, g.GetEdges(2).size());
+    EXPECT_EQ(1, g.GetEdges(3).size());
+    EXPECT_EQ(1, g.GetEdges(5).size());
+
+    g.RemoveVertex(0);
+
+    // Vertex count after removal
+    EXPECT_EQ(4, g.GetVertexCount());
+    std::vector<int> v = g.GetVertices();
+    EXPECT_EQ(4, v.size());
+
+    // Check edge count after removal
+    EXPECT_EQ(0, g.GetEdges(1).size());
+    EXPECT_EQ(0, g.GetEdges(2).size());
+    EXPECT_EQ(0, g.GetEdges(3).size());
+    EXPECT_EQ(0, g.GetEdges(5).size());
+}
 
 TEST_F(GraphTest, AddEdge) {}
 
