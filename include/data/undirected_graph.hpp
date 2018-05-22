@@ -11,12 +11,12 @@
 namespace sangi {
 
     template <class T>
-    class Graph {
+    class UndirectedGraph {
         typedef typename std::vector<T> VertexVector;
         typedef typename std::vector<Edge<T>> EdgeVector;
         typedef typename std::unordered_map<T, EdgeVector> AdjList;
     public:
-        Graph() = default;
+        UndirectedGraph() = default;
 
         void AddVertex(const T vertex)                          { adj_list_[vertex]; }
 
@@ -67,10 +67,14 @@ namespace sangi {
             }
         }
 
-        const VertexVector GetAdjacent(const T& vertex) {
+        const VertexVector GetAdjacent(const T& vertex) const {
             VertexVector v;
-            EdgeVector& edges = adj_list_[vertex];
-            for (Edge<T>& edge : edges) {
+            auto search = adj_list_.find(vertex);
+            if (search == adj_list_.end()) { return v; }
+
+
+            const EdgeVector& edges = search->second;
+            for (const Edge<T>& edge : edges) {
                 T src = edge.GetSrc();
                 T dst = edge.GetDst();
                 if (src == vertex) { v.push_back(dst); }
@@ -112,7 +116,7 @@ namespace sangi {
                         edge_vector.end());
             }
         }
-    }; // class Graph
+    }; // class UndirectedGraph
 
 
 } // namespace sangi

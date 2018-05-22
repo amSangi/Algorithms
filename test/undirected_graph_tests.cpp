@@ -3,20 +3,20 @@
 //
 
 #include <gtest/gtest.h>
-#include "graph_test.hpp"
-#include "data/graph.hpp"
+#include "undirected_graph_test.hpp"
+#include "data/undirected_graph.hpp"
 #include "data/edge.hpp"
 
 using namespace sangi;
 
-TEST_F(GraphTest, TestConstructor) {
+TEST_F(UndirectedGraphTest, Constructor) {
     EXPECT_EQ(4, g.GetVertexCount());
     EXPECT_EQ(4, g.GetVertices().size());
     EXPECT_EQ(0, g_empty.GetVertexCount());
     EXPECT_EQ(0, g_empty.GetVertices().size());
 }
 
-TEST_F(GraphTest, AddVertex) {
+TEST_F(UndirectedGraphTest, AddVertex) {
 
     EXPECT_EQ(4, g.GetVertexCount());
     std::vector<int> v = g.GetVertices();
@@ -29,7 +29,7 @@ TEST_F(GraphTest, AddVertex) {
     }
 }
 
-TEST_F(GraphTest, AddEdge) {
+TEST_F(UndirectedGraphTest, AddEdge) {
     Edge<int> e1(0, 2, 3.5);
 
     EXPECT_EQ(0, g.GetEdges(0).size());
@@ -58,7 +58,7 @@ TEST_F(GraphTest, AddEdge) {
     EXPECT_EQ(3.5, two_edge.GetWeight());
 }
 
-TEST_F(GraphTest, AddVertexWithEdges) {
+TEST_F(UndirectedGraphTest, AddVertexWithEdges) {
     Edge<int> e1(5, 1, 5.5);
     Edge<int> e2(5, 2, 3.3);
     Edge<int> e3(5, 3, 2.2);
@@ -87,7 +87,7 @@ TEST_F(GraphTest, AddVertexWithEdges) {
     EXPECT_TRUE(it3 != end);
 }
 
-TEST_F(GraphTest, AddVertexWithOtherImplicitVertexAdd) {
+TEST_F(UndirectedGraphTest, AddVertexWithOtherImplicitVertexAdd) {
     Edge<int> e1(0, 1, 5.5);
     Edge<int> e2(0, 2, 5.5);
     Edge<int> e3(0, 3, 5.5);
@@ -106,13 +106,13 @@ TEST_F(GraphTest, AddVertexWithOtherImplicitVertexAdd) {
     }
 }
 
-TEST_F(GraphTest, RemoveVertex) {
+TEST_F(UndirectedGraphTest, RemoveVertex) {
     g.RemoveVertex(0);
     EXPECT_EQ(3, g.GetVertexCount());
     EXPECT_EQ(3, g.GetVertices().size());
 }
 
-TEST_F(GraphTest, RemoveVertexWithEdges) {
+TEST_F(UndirectedGraphTest, RemoveVertexWithEdges) {
     Edge<int> e1(0, 1, 5.5);
     Edge<int> e2(0, 2, 5.5);
     // Check only one edge added in ciruclar reference
@@ -137,7 +137,7 @@ TEST_F(GraphTest, RemoveVertexWithEdges) {
 }
 
 
-TEST_F(GraphTest, AddEdgesWithImplicitVerticesAdd) {
+TEST_F(UndirectedGraphTest, AddEdgesWithImplicitVerticesAdd) {
     Edge<int> e1(0, 1, 5.5);
     Edge<int> e2(0, 2, 5.5);
     // New vertex, 5, is implicitly added
@@ -172,7 +172,7 @@ TEST_F(GraphTest, AddEdgesWithImplicitVerticesAdd) {
 
 }
 
-TEST_F(GraphTest, RemoveEdge) {
+TEST_F(UndirectedGraphTest, RemoveEdge) {
     Edge<int> e1(0, 1, 5.5);
 
     // Check edges before addition
@@ -192,7 +192,7 @@ TEST_F(GraphTest, RemoveEdge) {
     EXPECT_EQ(0, g.GetEdges(1).size());
 }
 
-TEST_F(GraphTest, GetAdjacent) {
+TEST_F(UndirectedGraphTest, GetAdjacent) {
     Edge<int> e1{0, 1, 5.5};
     Edge<int> e2{0, 2, 3.5};
     Edge<int> e3{3, 0, 2.2};

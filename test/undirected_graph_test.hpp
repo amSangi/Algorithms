@@ -6,11 +6,11 @@
 #define ALGORITHMS_GRAPH_TEST_HPP
 
 #include <gtest/gtest.h>
-#include "data/graph.hpp"
+#include "data/undirected_graph.hpp"
 
 using namespace sangi;
 
-class GraphTest : public ::testing::Test {
+class UndirectedGraphTest : public ::testing::Test {
 protected:
 
     virtual void SetUp() {
@@ -20,8 +20,8 @@ protected:
         g.AddVertex(3);
     }
 
-    Graph<int> g;
-    Graph<int> g_empty;
+    UndirectedGraph<int> g;
+    UndirectedGraph<int> g_empty;
 
 };
 
