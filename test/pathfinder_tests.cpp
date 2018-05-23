@@ -51,10 +51,24 @@ TEST_F(PathFinderTest, ComplexBFS) {
 }
 
 TEST_F(PathFinderTest, SimpleDFS) {
+    std::list<int> actual_int_path = pathfinder_int.DepthFirstSearch(simple_int_graph, 0, 7);
+    std::list<char> actual_char_path = pathfinder_char.DepthFirstSearch(simple_char_graph, 'a', 'h');
 
+    std::list<int> expected_int_path{0, 1, 4, 3, 5, 6, 7};
+    std::list<char> expected_char_path{'a', 'b', 'e', 'd', 'f', 'g', 'h'};
+
+    ValdiatePath(expected_int_path, actual_int_path);
+    ValdiatePath(expected_char_path, actual_char_path);
 }
 
 
 TEST_F(PathFinderTest, ComplexDFS) {
+    std::list<int> actual_int_path = pathfinder_int.DepthFirstSearch(complex_int_graph, 3, 8);
+    std::list<char> actual_char_path = pathfinder_char.DepthFirstSearch(complex_char_graph, 'd', 'i');
 
+    std::list<int> expected_int_path{3, 7, 8};
+    std::list<char> expected_char_path{'d', 'h', 'i'};
+
+    ValdiatePath(expected_int_path, actual_int_path);
+    ValdiatePath(expected_char_path, actual_char_path);
 }

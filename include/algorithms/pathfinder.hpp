@@ -7,6 +7,8 @@
 
 #include <list>
 #include <queue>
+#include <unordered_map>
+#include <set>
 #include <stack>
 #include "data/undirected_graph.hpp"
 
@@ -25,16 +27,16 @@ namespace sangi {
     private:
 
         inline std::list<T> EmptyPath() { return std::list<T>(); }
+        std::list<T> ConstructDFSPath(const std::unordered_map<T, T>& parent_map, const T& dst);
     }; // class PathFinder
 
     // Class Method Definitions
 
     template<class T>
     std::list<T> PathFinder<T>::BreadthFirstSearch(const UndirectedGraph<T>& graph, const T& src, const T& dst) {
-        using std::queue;
         using std::list;
 
-        queue<list<T>> frontier;
+        std::queue<list<T>> frontier;
 
         list<T> src_list;
         src_list.push_back(src);
@@ -48,7 +50,7 @@ namespace sangi {
             const T& current_vertex = path.back();
             if (current_vertex == dst) { return path; }
 
-            auto adj_ = graph.GetAdjacent(current_vertex);
+            // Iterate over children/adjacent vertices
             for (const T& adj : graph.GetAdjacent(current_vertex)) {
                 list<T> new_path(path);
                 new_path.push_back(adj);
@@ -63,8 +65,43 @@ namespace sangi {
 
     template<class T>
     std::list<T> PathFinder<T>::DepthFirstSearch(const UndirectedGraph<T>& graph, const T& src, const T& dst) {
-        // TODO: Finish Impl
+        std::stack<T> frontier;
+        std::set<T> visited;
+        std::unordered_map<T, T> parent_map;
+
+        frontier.push(src);
+        while (!frontier.empty()) {
+            const T& current_vertex = frontier.top();
+            if (current_vertex == dst) { return ConstructDFSPath(parent_map, dst); }
+
+            visited.insert(current_vertex);
+
+            // Iterate over children/adjacent vertices
+            for (const T& adj : graph.GetAdjacent(current_vertex)) {
+                if (visited.find(adj) == visited.end()) {
+                    parent_map[adj] = current_vertex;
+                    frontier.push(adj);
+                    if (adj == dst) { return ConstructDFSPath(parent_map, dst); }
+                }
+            }
+        }
+
         return EmptyPath();
+    }
+
+    template<class T>
+    std::list<T> PathFinder<T>::ConstructDFSPath(const std::unordered_map<T, T>& parent_map, const T& dst) {
+        std::list<T> path;
+        path.push_front(dst);
+
+        auto search = parent_map.find(dst);
+
+        while (search != parent_map.end()) {
+            path.push_front(search->second);
+            search = parent_map.find(search->second);
+        }
+
+        return path;
     }
 
 

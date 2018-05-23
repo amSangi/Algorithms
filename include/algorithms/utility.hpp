@@ -15,6 +15,18 @@ namespace sangi {
     // Return the number of digits in an integer
     size_t CountDigits(int number);
 
+    // Remove duplicates from container and return the new container size
+    template<class Iterator>
+    size_t RemoveSortedDuplicates(Iterator first, Iterator last) {
+        return 0; // stub
+    }
+
+    // Remove duplicates from container and return the new container size
+    template<class Iterator>
+    size_t RemoveUnsortedDuplicates(Iterator first, Iterator last) {
+         return 0; // stub
+    }
+
 } // namespace sangi
 
 #endif //ALGORITHMS_UTILITY_H

@@ -73,8 +73,7 @@ namespace sangi {
             if (search == adj_list_.end()) { return v; }
 
 
-            const EdgeVector& edges = search->second;
-            for (const Edge<T>& edge : edges) {
+            for (const Edge<T>& edge : search->second) {
                 T src = edge.GetSrc();
                 T dst = edge.GetDst();
                 if (src == vertex) { v.push_back(dst); }
