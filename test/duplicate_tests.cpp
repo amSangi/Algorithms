@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "algorithms/utility.hpp"
+#include "algorithms/duplicate.hpp"
 
 using namespace sangi;
 

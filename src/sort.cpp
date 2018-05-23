@@ -26,7 +26,7 @@ namespace sangi {
             auto floor_value = static_cast<int>(value);
 
             size_t digit = floor_value % base;
-            buckets[digit].push_back(n);
+            buckets[digit].emplace_back(n);
         }
 
         list.clear();
@@ -36,7 +36,7 @@ namespace sangi {
     void BucketsToList(vector<int>& list, vector<vector<int>>& buckets) {
         for (auto&& bucket : buckets) {
             for (int n : bucket) {
-                list.push_back(n);
+                list.emplace_back(n);
             }
             bucket.clear();
         }
@@ -72,7 +72,7 @@ namespace sangi {
                 buckets[0].insert(it, n);
             }
             else {
-                buckets[1].push_back(n);
+                buckets[1].emplace_back(n);
             }
         }
         data.clear();

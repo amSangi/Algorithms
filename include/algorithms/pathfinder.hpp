@@ -39,9 +39,9 @@ namespace sangi {
         std::queue<list<T>> frontier;
 
         list<T> src_list;
-        src_list.push_back(src);
+        src_list.emplace_back(src);
 
-        frontier.push(src_list);
+        frontier.emplace(src_list);
         while (!frontier.empty()) {
 
             const list<T> path = frontier.front();
@@ -53,9 +53,9 @@ namespace sangi {
             // Iterate over children/adjacent vertices
             for (const T& adj : graph.GetAdjacent(current_vertex)) {
                 list<T> new_path(path);
-                new_path.push_back(adj);
+                new_path.emplace_back(adj);
                 if (adj == dst) { return new_path; }
-                frontier.push(new_path);
+                frontier.emplace(new_path);
             }
         }
 
@@ -69,7 +69,7 @@ namespace sangi {
         std::set<T> visited;
         std::unordered_map<T, T> parent_map;
 
-        frontier.push(src);
+        frontier.emplace(src);
         while (!frontier.empty()) {
             const T& current_vertex = frontier.top();
             if (current_vertex == dst) { return ConstructDFSPath(parent_map, dst); }
@@ -80,7 +80,7 @@ namespace sangi {
             for (const T& adj : graph.GetAdjacent(current_vertex)) {
                 if (visited.find(adj) == visited.end()) {
                     parent_map[adj] = current_vertex;
-                    frontier.push(adj);
+                    frontier.emplace(adj);
                     if (adj == dst) { return ConstructDFSPath(parent_map, dst); }
                 }
             }
@@ -92,12 +92,12 @@ namespace sangi {
     template<class T>
     std::list<T> PathFinder<T>::ConstructDFSPath(const std::unordered_map<T, T>& parent_map, const T& dst) {
         std::list<T> path;
-        path.push_front(dst);
+        path.emplace_front(dst);
 
         auto search = parent_map.find(dst);
 
         while (search != parent_map.end()) {
-            path.push_front(search->second);
+            path.emplace_front(search->second);
             search = parent_map.find(search->second);
         }
 
