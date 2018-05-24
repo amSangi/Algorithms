@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.9)
 project(Test)
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(/include)
+
 link_directories(${ALGORITHS_LIB_OUT_PATH})
 
 set(EXECUTABLE_OUTPUT_PATH  ${ALGORITHMS_BIN_OUT_PATH})

@@ -16,6 +16,11 @@ namespace sangi {
     // Find the longest substrings of a and b
     std::vector<std::string> LongestCommonSubstring(const std::string a, const std::string b);
 
+    // Return indices where pattern appears in text using brute force search
+    std::vector<int> BruteForcePatternSearch(const std::string text, const std::string pattern);
+
+    // Return indices where pattern appears in text using the KMP algorithm
+    std::vector<int> KMPSearch(const std::string text, const std::string pattern);
 
 } // namespace sangi
 

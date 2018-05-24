@@ -4,7 +4,7 @@
 
 #include <list>
 #include <gtest/gtest.h>
-#include "pathfinder_test.hpp"
+#include "include/pathfinder_test.hpp"
 #include "data/undirected_graph.hpp"
 #include "data/edge.hpp"
 #include "algorithms/pathfinder.hpp"

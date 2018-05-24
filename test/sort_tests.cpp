@@ -10,7 +10,7 @@
 using namespace sangi;
 
 
-TEST(TestQuickSort, TestSimpleIntSort) {
+TEST(QuickSortTest, SimpleIntSort) {
     std::vector<int> vec{2, 1, 4, 0, 3};
 
     QuickSort(vec.begin(), vec.end());
@@ -20,7 +20,7 @@ TEST(TestQuickSort, TestSimpleIntSort) {
 }
 
 
-TEST(TestQuickSort, TestSimpleCharSort) {
+TEST(QuickSortTest, SimpleCharSort) {
     std::vector<char> vec{'a', 'f', 'b', 'z', 'd'};
 
     QuickSort(vec.begin(), vec.end());
@@ -31,7 +31,7 @@ TEST(TestQuickSort, TestSimpleCharSort) {
     EXPECT_EQ('z', vec[4]);
 }
 
-TEST(TestMergeSort, TestSimpleIntSort) {
+TEST(MergeSortTest, SimpleIntSort) {
     std::vector<int> vec{2, 1, 4, 0, 3};
 
     MergeSort(vec.begin(), vec.end());
@@ -41,7 +41,7 @@ TEST(TestMergeSort, TestSimpleIntSort) {
 }
 
 
-TEST(TestMergeSort, TestSimpleCharSort) {
+TEST(MergeSortTest, SimpleCharSort) {
     std::vector<char> vec{'a', 'f', 'b', 'z', 'd'};
 
     MergeSort(vec.begin(), vec.end());
@@ -53,7 +53,7 @@ TEST(TestMergeSort, TestSimpleCharSort) {
 }
 
 
-TEST(TestRadixSort, TestSimplePositiveInts) {
+TEST(RadixSortTest, SimplePositiveInts) {
     std::vector<int> vec{2, 1, 4, 0, 3};
 
     RadixSort(vec);
@@ -63,7 +63,7 @@ TEST(TestRadixSort, TestSimplePositiveInts) {
 }
 
 
-TEST(TestRadixSort, TestComplexPositiveInts) {
+TEST(RadixSortTest, ComplexPositiveInts) {
     std::vector<int> vec{2, 10034, 245, 9841, 46810349};
 
     RadixSort(vec);
@@ -75,7 +75,7 @@ TEST(TestRadixSort, TestComplexPositiveInts) {
 }
 
 
-TEST(TestRadixSort, TestComplexNegativeInts) {
+TEST(RadixSortTest, ComplexNegativeInts) {
     std::vector<int> vec{-2, -10034, -245, -9841, -46810349, -46810349};
 
     RadixSort(vec);
@@ -88,7 +88,7 @@ TEST(TestRadixSort, TestComplexNegativeInts) {
 }
 
 
-TEST(TestRadixSort, TestComplexMixedInts) {
+TEST(RadixSortTest, ComplexMixedInts) {
     std::vector<int> vec{2, -10034, -245, 9841, 46810349, -46810349};
 
     RadixSort(vec);

@@ -3,7 +3,7 @@
 //
 
 #include <gtest/gtest.h>
-#include "undirected_graph_test.hpp"
+#include "include/undirected_graph_test.hpp"
 #include "data/undirected_graph.hpp"
 #include "data/edge.hpp"
 
