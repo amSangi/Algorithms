@@ -23,8 +23,8 @@ vector<string> sangi::LongestCommonSubstring(const string a, const string b) {
 }
 
 
-vector<int> sangi::BruteForcePatternSearch(const std::string text, const std::string pattern) {
-    vector<int> indices;
+vector<size_t> sangi::BruteForcePatternSearch(const std::string text, const std::string pattern) {
+    vector<size_t> indices;
 
     size_t M = pattern.size();
     size_t N = text.size();
@@ -45,16 +45,71 @@ vector<int> sangi::BruteForcePatternSearch(const std::string text, const std::st
     return indices;
 }
 
+// Store the lengths of the maximum matching proper prefix which is also a suffix
+vector<size_t> GenerateShiftVector(std::string const& pattern) {
+    size_t M = pattern.size();
+    vector<size_t> shift_vector(M);
 
-// TODO: Finish Impl
-vector<int> GenerateFailureTable(const std::string pattern) {
-    return vector<int>(); // stub
+    size_t i = 0, j = 1;
+    shift_vector[0] = 0;
+
+
+    while (j < M) {
+        if (pattern[i] == pattern[j]) {
+            shift_vector[j] =  ++i;
+            ++j;
+        }
+        else {
+            if (i == 0) {
+                shift_vector[j] = 0;
+                ++j;
+            }
+            else {
+                i = shift_vector[i - 1];
+            }
+        }
+
+    }
+
+    return shift_vector;
 }
 
-// TODO: Finish Impl
-vector<int> sangi::KMPSearch(const std::string text, const std::string pattern) {
-    vector<int> table = GenerateFailureTable(pattern);
-    vector<int> indices;
+
+vector<size_t > sangi::KMPSearch(const std::string text, const std::string pattern) {
+    size_t N = text.size();
+    size_t M = pattern.size();
+    if (N < M) { return vector<size_t >(); }
+
+    vector<size_t> shift_vector = GenerateShiftVector(pattern);
+    vector<size_t> indices;
+
+    // i - text index, j - pattern index
+    size_t i = 0, j = 0;
+    while (i < N) {
+        if (pattern[j] == text[i]) {
+            ++i;
+            ++j;
+        }
+
+        if (j == M) {
+            // Pattern match found
+            indices.emplace_back(i - j);
+            // Shift pattern forward
+            j = shift_vector[j - 1];
+        }
+        else if (i < N && pattern[j] != text[i]) {
+            if (j) {
+                // Shift the pattern forward
+                j = shift_vector[j - 1];
+            }
+            else {
+                // Pattern can't match - move text index forward
+                ++i;
+            }
+        }
+
+    }
+
     return indices;
 }
 

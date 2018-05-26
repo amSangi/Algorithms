@@ -34,7 +34,7 @@ TEST(PatternSearchTest, BruteForceSearch) {
     std::string text = "AAAB ACACD ACDFACACD FF";
     std::string pat = "ACACD";
 
-    std::vector<int> indices = BruteForcePatternSearch(text, pat);
+    std::vector<size_t> indices = BruteForcePatternSearch(text, pat);
 
     ASSERT_EQ(2, indices.size());
     EXPECT_EQ(5, indices[0]);
@@ -46,7 +46,7 @@ TEST(PatternSearchTest, KMPSearch) {
     std::string text = "AAAB ACACD ACDFACACD FF";
     std::string pat = "ACACD";
 
-    std::vector<int> indices = KMPSearch(text, pat);
+    std::vector<size_t> indices = KMPSearch(text, pat);
 
     ASSERT_EQ(2, indices.size());
     EXPECT_EQ(5, indices[0]);
