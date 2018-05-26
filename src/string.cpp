@@ -2,6 +2,7 @@
 // Created by Amir Sangi on 2018-05-23.
 //
 
+#include <array>
 #include <string>
 #include <vector>
 #include "algorithms/string.hpp"
@@ -10,20 +11,18 @@ using std::string;
 using std::vector;
 
 // TODO: Finish Impl
-vector<string> sangi::KCommonSubstring(const string a, const string b, size_t k) {
-    vector<string> substrings;
-    return substrings;
+vector<string> sangi::KCommonSubstring(const string& a, const string& b, size_t k) {
+    return vector<string>(); // left as an exercise for the reader
 }
 
 
 // TODO: Finish Impl
-vector<string> sangi::LongestCommonSubstring(const string a, const string b) {
-    vector<string> substrings;
-    return substrings;
+vector<string> sangi::LongestCommonSubstring(const string& a, const string& b) {
+    return vector<string>(); // left as an exercise for the reader
 }
 
 
-vector<size_t> sangi::BruteForcePatternSearch(const std::string text, const std::string pattern) {
+vector<size_t> sangi::BruteForcePatternSearch(const std::string& text, const std::string& pattern) {
     vector<size_t> indices;
 
     size_t M = pattern.size();
@@ -46,7 +45,7 @@ vector<size_t> sangi::BruteForcePatternSearch(const std::string text, const std:
 }
 
 // Store the lengths of the maximum matching proper prefix which is also a suffix
-vector<size_t> GenerateShiftVector(std::string const& pattern) {
+vector<size_t> GenerateShiftVector(const std::string& pattern) {
     size_t M = pattern.size();
     vector<size_t> shift_vector(M);
 
@@ -75,7 +74,7 @@ vector<size_t> GenerateShiftVector(std::string const& pattern) {
 }
 
 
-vector<size_t > sangi::KMPSearch(const std::string text, const std::string pattern) {
+vector<size_t > sangi::KMPSearch(const std::string& text, const std::string& pattern) {
     size_t N = text.size();
     size_t M = pattern.size();
     if (N < M) { return vector<size_t >(); }
