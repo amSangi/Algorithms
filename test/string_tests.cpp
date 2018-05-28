@@ -13,7 +13,7 @@ TEST(CommonSubstringTest, LongestSingleMatch) {
     std::string a = "GeeksforGeeks";
     std::string b = "GeeksQuiz";
 
-    int length = LongestCommonSubstring(a, b);
+    int length = LongestCommonSubstringSize(a, b);
     EXPECT_EQ(5, length);
 }
 
@@ -23,7 +23,7 @@ TEST(CommonSubstringTest, LongestMultipleMatch) {
     std::string a = "ABBBBACA ACCA CXDAABCBCACAFFE F";
     std::string b = "F FEABBBBACAZFFE CDA ABCBCACAV VL";
 
-    int length = LongestCommonSubstring(a, b);
+    int length = LongestCommonSubstringSize(a, b);
     ASSERT_EQ(8, length);
 }
 

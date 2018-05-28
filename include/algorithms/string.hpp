@@ -11,7 +11,7 @@
 namespace sangi {
 
     // Find the length of the longest substring(s) of a and b
-    int LongestCommonSubstring(const std::string& a, const std::string& b);
+    int LongestCommonSubstringSize(const std::string &a, const std::string &b);
 
     // Return indices where pattern appears in text using brute force search
     std::vector<size_t> BruteForcePatternSearch(const std::string& text, const std::string& pattern);

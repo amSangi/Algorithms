@@ -11,7 +11,7 @@ using std::string;
 using std::vector;
 
 
-int sangi::LongestCommonSubstring(const string& a, const string& b) {
+int sangi::LongestCommonSubstringSize(const string &a, const string &b) {
     const size_t N = a.size();
     const size_t M = b.size();
 
