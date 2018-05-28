@@ -13,20 +13,18 @@ TEST(CommonSubstringTest, LongestSingleMatch) {
     std::string a = "GeeksforGeeks";
     std::string b = "GeeksQuiz";
 
-    std::vector<std::string> longest_substrings = LongestCommonSubstring(a, b);
-    ASSERT_EQ(1, longest_substrings.size());
-    EXPECT_EQ("Geeks", longest_substrings[0]);
+    int length = LongestCommonSubstring(a, b);
+    EXPECT_EQ(5, length);
 }
 
 
 TEST(CommonSubstringTest, LongestMultipleMatch) {
-    std::string a = "ABBBBACA ACCA CDA ABCBCACAFFE F";
-    std::string b = "ACDABBBBACAD ACCA DDA ABCBCACAD FFE";
+    // Longest Common Substrings: ABBBBACA, ABCBCACA
+    std::string a = "ABBBBACA ACCA CXDAABCBCACAFFE F";
+    std::string b = "F FEABBBBACAZFFE CDA ABCBCACAV VL";
 
-    std::vector<std::string> longest_substrings = LongestCommonSubstring(a, b);
-    ASSERT_EQ(2, longest_substrings.size());
-    EXPECT_EQ("ABBBBACA", longest_substrings[0]);
-    EXPECT_EQ("ABCBCACA", longest_substrings[1]);
+    int length = LongestCommonSubstring(a, b);
+    ASSERT_EQ(8, length);
 }
 
 

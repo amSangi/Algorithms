@@ -10,15 +10,33 @@
 using std::string;
 using std::vector;
 
-// TODO: Finish Impl
-vector<string> sangi::KCommonSubstring(const string& a, const string& b, size_t k) {
-    return vector<string>(); // left as an exercise for the reader
-}
 
+int sangi::LongestCommonSubstring(const string& a, const string& b) {
+    const size_t N = a.size();
+    const size_t M = b.size();
 
-// TODO: Finish Impl
-vector<string> sangi::LongestCommonSubstring(const string& a, const string& b) {
-    return vector<string>(); // left as an exercise for the reader
+    int dp[N + 1][M + 1];
+    dp[0][0] = 0;
+
+    int longest_length = 0;
+
+    // Find substrings
+    for (int i = 0; i < N; ++i) {
+        for (int j = 0; j < M; ++j) {
+            if (i == 0 || j == 0) {
+                dp[i][j] = 0;
+            }
+            else if (a[i-1] == b[j-1]) {
+                dp[i][j] = dp[i-1][j-1] + 1;
+                longest_length = std::max(longest_length, dp[i][j]);
+            }
+            else {
+                dp[i][j] = 0;
+            }
+        }
+    }
+
+    return longest_length;
 }
 
 
